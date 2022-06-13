@@ -1,0 +1,22 @@
+{
+  "registrations": [
+    {
+      "id": 1,
+      "name": "Mohd Afzal khan D",
+      "email": "",
+      "dob": "2022-06-14",
+      "contact": "9012114316",
+      "password": "111",
+      "cnfPassword": "111"
+    },
+    {
+      "id": 2,
+      "name": "Afzal khan",
+      "email": "",
+      "dob": "",
+      "contact": "",
+      "password": "",
+      "cnfPassword": ""
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Navigate } from 'react-router-dom';
 
 
 function RegistrationForm (props) {
@@ -62,7 +63,6 @@ function RegistrationForm (props) {
                 </div>
 
             </form>
-
         </div>
     );
 }
