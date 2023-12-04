@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 
 function RegistrationForm (props) {
+    let navigator = useNavigate();
     const [formObject,setFormObject] = useState(props.formObject);
     const save = (event)=>{
         event.preventDefault();
@@ -11,6 +12,10 @@ function RegistrationForm (props) {
         }
         props.register(formObject);
         setFormObject({id:0,name:'',email:'',dob:'',contact:'',password:'',cnfPassword:''});
+        setTimeout(()=>{
+
+            navigator('/show');
+        }, 1500)
     }
     const handleChange = ({target:element}) => {
        var obj = { ...formObject };
@@ -22,42 +27,20 @@ function RegistrationForm (props) {
     },[props.formObject])
     return (
         <div>
-            <label>Registration From</label> <hr />
+            <h1>Discover your Earning potential</h1> <hr /> <br />
+            <label htmlFor="">
+                Turn your Youtube expertise into a lucrative income through resource sharing
+            </label>
             <form onSubmit={save}>
+                <br />
                 <div className="row">
-                    <div className="col-6">
-                        <label htmlFor="name">Name</label><br />
-                        <input type="text" id="name" value={formObject.name} onChange={handleChange}/>
+                    <div className="col-8">
+                        <input required className="form-control" type="text" placeholder="Enter video url" id="name" value={formObject.name} onChange={handleChange}/>
                     </div>
-                    <div className="col-6">
-                        <label htmlFor="email">Email</label><br />
-                        <input type="text" id="email" value={formObject.email} onChange={handleChange} />
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-6">
-                        <label htmlFor="dob">Date for birth</label><br />
-                        <input type="date" id="dob" value={formObject.dob} onChange={handleChange}/>
-                    </div>
-                    <div className="col-6 mt-2">
-                        <label htmlFor="contact">Contact</label><br />
-                        <input type="text" id="contact"  value={formObject.contact} onChange={handleChange}/>
-                    </div>
-                </div>
-                <div className="row mt-2">
-                    <div className="col-6">
-                        <label htmlFor="password">Password</label><br />
-                        <input type="password" id="password" value={formObject.password} onChange={handleChange}/>
-                    </div>
-                    <div className="col-6">
-                        <label htmlFor="cnfPassword">Confirm Password</label><br />
-                        <input type="password" id="cnfPassword" value={formObject.cnfPassword} onChange={handleChange}/>
-                    </div>
-                    
                 </div>
                 <div className="row">
                     <div className="col-12 mt-2">
-                        <input type="submit" className="btn btn-primary" value="SAVE" />
+                        <input type="submit" className="btn btn-primary" value="SEARCH" />
                     </div>
                     
                 </div>
