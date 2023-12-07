@@ -3,23 +3,17 @@ import SearchForm from './components/registration-form/registrationForm';
 import RegistrationData from './components/registration-data/registrationData';
 import { useState } from 'react';
 import { BrowserRouter, Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
-import {getRegistrations,makeRegistration, getYoutubeDataA} from './services/registrationService';
+import {getRegistrations,makeRegistration, getYoutubeData} from './services/registrationService';
 
 let count = 0;
 let arr = [];
-
-// getYoutubeData().then((response)=>{
-//   data = response.data;
-//   console.log(data);
-// });
-
 
 
 function App() {
   const [data,setData] = useState(arr);
   const [formObject,setFormData] = useState({id:0,name:'',email:'',dob:'',contact:'',password:'',cnfPassword:''});
   const register = (obj) => {
-    getYoutubeDataA(obj.name ?? 'anchors').then((response)=>{
+    getYoutubeData(obj.name ?? 'anchors').then((response)=>{
       let youtubeResponse = response.data;
       console.log('Data by me', youtubeResponse.items);
       setData(youtubeResponse.items)

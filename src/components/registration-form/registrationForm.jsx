@@ -13,9 +13,8 @@ function RegistrationForm (props) {
         props.register(formObject);
         setFormObject({id:0,name:'',email:'',dob:'',contact:'',password:'',cnfPassword:''});
         setTimeout(()=>{
-
             navigator('/show');
-        }, 1500)
+        }, 2500)
     }
     const handleChange = ({target:element}) => {
        var obj = { ...formObject };

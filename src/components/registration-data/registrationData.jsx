@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     MDBBtn,
     MDBModal,
@@ -9,9 +9,9 @@ import {
     MDBModalBody,
     MDBModalFooter,
   } from 'mdb-react-ui-kit';
+import axios from 'axios';
 
 function RegistrationData({videos,edit}){
-    console.log(videos);
 
     videos = videos.map((video)=>{
         let stats = video.statistics;
@@ -26,12 +26,6 @@ function RegistrationData({videos,edit}){
         return video;
     })
     videos = videos.sort((first, second)=> second.earning - first.earning)
-    console.log('aaha', videos);
-
-    let topVideo = videos.length > 0 ? videos[0] : {};
-    topVideo = topVideo ?? {}
-    videos.shift();
-    console.log(videos);
 
     const [basicModal, setBasicModal] = useState(false);
 
@@ -51,18 +45,18 @@ function RegistrationData({videos,edit}){
             <br /><br />
             <div className="row">
                 <div className="col-4">
-                    <img src={topVideo.snippet?.thumbnails.medium.url} />
+                    <img src={videos[0]?.snippet?.thumbnails?.medium?.url} />
                 </div>
                 <div className="col-3">
-                    <h3>{ topVideo.snippet?.title }</h3>
-                    <label htmlFor="">{ topVideo.statistics?.viewCount }</label>
-                    <label htmlFor="">{ topVideo.statistics?.likeCount }</label>
-                    <label htmlFor="">{ topVideo.statistics?.commentCount }</label>
+                    <h3>{ videos[0]?.snippet?.title }</h3>
+                    <label htmlFor="">{ videos[0]?.statistics?.viewCount }</label> <br />
+                    <label htmlFor="">{ videos[0]?.statistics?.likeCount }</label> <br />
+                    <label htmlFor="">{ videos[0]?.statistics?.commentCount }</label> <br />
                 </div>
                 <div className="col-5">
                     <h1>
                     Rs. 
-                    {topVideo.earning}
+                    {videos[0]?.earning}
                     </h1>
                 </div>
             </div>
@@ -86,14 +80,15 @@ function RegistrationData({videos,edit}){
                 </thead>
                 <tbody>
                     {videos.map((video,key)=>{
-                        return (<tr key={key}>
-                            <td>{key+2}</td>
-                            <td>{ video.snippet.title}</td>
-                            <td><img src={video.snippet.thumbnails.default.url} /></td>
-                            <td>{ video.statistics.likeCount }</td>
-                            <td>{ video.statistics.commentCount }</td>
-                            <td>{ video.snippet.publishedAt }</td>
-                            <td>{ video.statistics.viewCount }</td>
+                        
+                        return key==0 ? '' : (<tr key={key}>
+                            <td>{key+1}</td>
+                            <td>{ video?.snippet.title}</td>
+                            <td><img src={video?.snippet?.thumbnails?.default?.url} /></td>
+                            <td>{ video.statistics?.viewCount }</td>
+                            <td>{ video.statistics?.likeCount }</td>
+                            <td>{ video.statistics?.commentCount }</td>
+                            <td>{ video?.snippet?.publishedAt }</td>
                             <td>{ video.earning}</td>
                             </tr>)
                         }) }
