@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useRef } from 'react'; //change-1
 import {
     MDBBtn,
     MDBModal,
@@ -9,9 +10,23 @@ import {
     MDBModalBody,
     MDBModalFooter,
   } from 'mdb-react-ui-kit';
-import axios from 'axios';
+  import emailjs from '@emailjs/browser';
 
 function RegistrationData({videos,edit}){
+    const form = useRef() 
+
+    const sendEmail = (e) => {
+        console.log('Form submitted ', e);
+        e.preventDefault();
+
+        emailjs.sendForm('service_yw5wwhw', 'template_vhk2as5', form.current, 'Z4X7Z2z8wD-0mQDez')
+            .then((result) => {
+                alert('Email sent successfully')
+            }, (error) => {
+                console.log(error.text);
+            });
+        e.target.reset();
+    };
 
     videos = videos.map((video)=>{
         let stats = video.statistics;
@@ -49,9 +64,9 @@ function RegistrationData({videos,edit}){
                 </div>
                 <div className="col-3">
                     <h3>{ videos[0]?.snippet?.title }</h3>
-                    <label htmlFor="">{ videos[0]?.statistics?.viewCount }</label> <br />
-                    <label htmlFor="">{ videos[0]?.statistics?.likeCount }</label> <br />
-                    <label htmlFor="">{ videos[0]?.statistics?.commentCount }</label> <br />
+                    <label htmlFor="">Views: { videos[0]?.statistics?.viewCount }</label> <br />
+                    <label htmlFor="">Likes: { videos[0]?.statistics?.likeCount }</label> <br />
+                    <label htmlFor="">Comment: { videos[0]?.statistics?.commentCount }</label> <br />
                 </div>
                 <div className="col-5">
                     <h1>
@@ -105,18 +120,16 @@ function RegistrationData({videos,edit}){
               <MDBBtn className='btn-close' color='none' onClick={toggleOpen}></MDBBtn>
             </MDBModalHeader>
             <MDBModalBody>
-                <div >
-                    <input type='text' placeholder='Name' className='form-control' /> <br />
-                    <input type='text' placeholder='Mobile' className='form-control' />
-                </div>
+                    <form  ref={form} onSubmit={sendEmail}>
+                        <input type='text' name='name' placeholder='Name' className='form-control' /> <br />
+                        <input type='text' name='mobile' placeholder='Mobile' className='form-control' /> <br />
+                        <button type='submit' className='form-control btn-dark'>Request a callback</button>
+                    </form>
             </MDBModalBody>
 
             <MDBModalFooter>
               <MDBBtn color='secondary' onClick={toggleOpen}>
                 Close
-              </MDBBtn>
-              <MDBBtn>
-              <a  className='btn-primary' href="mailto:ravi@anchors.in?subject='Hello from anchors!'&body='Callback is requested for you'">Request a callbackk</a>
               </MDBBtn>
             </MDBModalFooter>
           </MDBModalContent>
